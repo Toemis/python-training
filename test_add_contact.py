@@ -26,11 +26,12 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_link_text("home page").click()
 
     def create_contact(self, wd):
+        # go to contact creation form
         wd.find_element_by_link_text("add new").click()
+        # fill name and nickname
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys("Name")
-        wd.find_element_by_name("theform").click()
         wd.find_element_by_name("middlename").click()
         wd.find_element_by_name("middlename").clear()
         wd.find_element_by_name("middlename").send_keys("Middle")
@@ -40,6 +41,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
         wd.find_element_by_name("nickname").send_keys("Toemis")
+        # fill information about work
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()
         wd.find_element_by_name("title").send_keys("qwweqw")
@@ -49,6 +51,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").clear()
         wd.find_element_by_name("address").send_keys("1230009 gfhfj Rjfdkmdv; fff")
+        # fill contact information
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
         wd.find_element_by_name("home").send_keys("123123123")
@@ -73,6 +76,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys("111231123.com")
+        # fill personal information
         wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text("5")
         wd.find_element_by_xpath("//option[@value='5']").click()
@@ -90,6 +94,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys("2009")
+        # fill additional information
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys("123123 fddfg trtrtg 555")
@@ -99,6 +104,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys("fgdg grrtthg tr")
+        # submit form
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
     def login(self, wd):
