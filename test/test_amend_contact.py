@@ -2,14 +2,13 @@
 from model.contact import Contact
 
 
-def test_amend_first_contact(app):
+def test_amend_contact_first_name(app):
     app.session.login(username="admin", password="secret")
-    app.contact.amend_first_contact(
-        Contact(first_name="Name000", middle_name="Middle000", last_name="Surname000", nickname="Toemis",
-                title="qwweqw", company="12edsdfe", address="1230009 gfhfj Rjfdkmdv; fff",
-                home="123123123", mobile="2323232323", work_phone="45455454544", fax="67676767",
-                email="toemis13@gmil.com", email2="qweqwe@test.ry", email3="asdasd@rty.by",
-                homepage="111231123.com", birth_day="5", birth_month="October",
-                birth_year="1989", aniv_day="15", aniv_month="July", aniv_year="2009",
-                address2="123123 fddfg trtrtg 555", phone2="24/3", notes="fgdg grrtthg tr"))
+    app.contact.amend_first_contact(Contact(first_name="Name000"))
+    app.session.logout()
+
+
+def test_amend_contact_last_name(app):
+    app.session.login(username="admin", password="secret")
+    app.contact.amend_first_contact(Contact(last_name="Surname000"))
     app.session.logout()
