@@ -7,7 +7,7 @@ from fixture.contact import ContactHelper
 class Application:
     def __init__(self):
         self.wd = webdriver.Firefox()
-        self.wd.implicitly_wait(5)
+        self.wd.implicitly_wait(1)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
@@ -21,11 +21,17 @@ class Application:
 
     def return_home_page(self):
         wd = self.wd
-        wd.find_element_by_link_text("home page").click()
+        if not self.is_home_page():
+            wd.find_element_by_link_text("home page").click()
 
     def open_home_page(self):
         wd = self.wd
-        wd.get("http://localhost:801/addressbook/")
+        if not self.is_home_page():
+            wd.get("http://localhost:801/addressbook/")
 
     def destroy(self):
         self.wd.quit()
+
+    def is_home_page(self):
+        wd = self.wd
+        return wd.current_url.endswith("/addressbook/") or wd.current_url.endswith("/addressbook/index.php")
