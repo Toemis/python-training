@@ -47,7 +47,8 @@ class ContactHelper:
         if value is not None:
             wd.find_element_by_name(field_name).click()
             Select(wd.find_element_by_name(field_name)).select_by_visible_text(value)
-            wd.find_element_by_css_selector("select[name=" + str(field_name) + "] > option[value='" + str(value) + "']").click()
+            wd.find_element_by_css_selector(
+                "select[name=" + str(field_name) + "] > option[value='" + str(value) + "']").click()
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
