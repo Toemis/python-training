@@ -46,3 +46,5 @@ class Contact:
                (self.first_name is None or other.first_name is None or self.first_name == other.first_name)
 
 
+
+
