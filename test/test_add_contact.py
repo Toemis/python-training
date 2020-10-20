@@ -20,7 +20,8 @@ def test_add_contact(app):
 
 def test_add_mini_contact(app):
     old_contacts = app.contact.get_contact_list()
-    contact = Contact(first_name="Name1",  last_name="Surname1")
+    contact = Contact(first_name="Name1",  last_name="Surname1", birth_day="5", birth_month="October",
+                               birth_year="1989", aniv_day="15", aniv_month="July", aniv_year="2009")
     app.contact.create(contact)
     assert len(old_contacts) + 1 == app.contact.count()
     new_contacts = app.contact.get_contact_list()
