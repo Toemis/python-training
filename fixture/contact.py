@@ -120,13 +120,12 @@ class ContactHelper:
                 id = cells[0].find_element_by_tag_name("input").get_attribute("id")
                 last_name = cells[1].text
                 first_name = cells[2].text
-                all_phones = cells[5].text.splitlines()
+                all_phones = cells[5].text
                 # id = cont.find_element_by_name("selected[]").get_attribute("id")
                 # last_name = cont.find_element_by_xpath("./td[2]").text
                 # first_name = cont.find_element_by_xpath("./td[3]").text
                 self.contact_cache.append(Contact(id=id, last_name=last_name, first_name=first_name,
-                                                  home_phone=all_phones[0], mobile_phone=all_phones[1],
-                                                  work_phone=all_phones[2], phone2=all_phones[3]))
+                                                  all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
     def get_contact_info_from_edit_page(self, index):
@@ -136,12 +135,12 @@ class ContactHelper:
         last_name = wd.find_element_by_name("lastname").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
         home_phone = wd.find_element_by_name("home").get_attribute("value")
-        mobile_phone = wd.find_element_by_name("mobile").get_attribute("value")
         work_phone = wd.find_element_by_name("work").get_attribute("value")
+        mobile_phone = wd.find_element_by_name("mobile").get_attribute("value")
         phone2 = wd.find_element_by_name("phone2").get_attribute("value")
         return Contact(first_name=first_name, last_name=last_name, id=id,
-                       home_phone=home_phone, mobile_phone=mobile_phone,
-                       work_phone=work_phone, phone2=phone2)
+                       home_phone=home_phone, work_phone=work_phone,
+                       mobile_phone=mobile_phone, phone2=phone2)
 
     def get_contact_info_from_view_page(self, index):
         wd = self.app.wd

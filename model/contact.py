@@ -4,7 +4,7 @@ class Contact:
     def __init__(self, id=None, first_name=None, middle_name=None, last_name=None, nickname=None, title=None, company=None,
                  address=None, home_phone=None, mobile_phone=None, work_phone=None, fax=None, email=None, email2=None, email3=None,
                  homepage=None, birth_day=None, birth_month=None, birth_year=None, aniv_day=None, aniv_month=None,
-                 aniv_year=None, address2=None, phone2=None, notes=None):
+                 aniv_year=None, address2=None, phone2=None, notes=None, all_phones_from_home_page=None):
         self.id = id
         self.first_name = first_name
         self.middle_name = middle_name
@@ -30,6 +30,7 @@ class Contact:
         self.address2 = address2
         self.phone2 = phone2
         self.notes = notes
+        self.all_phones_from_home_page = all_phones_from_home_page
 
     def __repr__(self):
         return "%s, last_name: %s, first_name: %s" % (self.id, self.last_name, self.first_name)
