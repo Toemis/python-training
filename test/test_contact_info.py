@@ -5,8 +5,8 @@ from random import randrange
 def test_contact_info_on_home_page(app):
     home_contacts_list = app.contact.get_contact_list()
     index = randrange(len(home_contacts_list))
-    contact_from_home_page = home_contacts_list[1]
-    contact_from_edit_page = app.contact.get_contact_info_from_edit_page(1)
+    contact_from_home_page = home_contacts_list[index]
+    contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert contact_from_home_page.id == contact_from_edit_page.id
     assert contact_from_home_page.first_name == contact_from_edit_page.first_name
     assert contact_from_home_page.last_name == contact_from_edit_page.last_name
@@ -35,8 +35,10 @@ def clear(s):
     return re.sub("[/() -]", "", s)  # delete characters from first parameter
 
 
-def clear_spaces_before_newline(s):  # delete all spaces or additional \n before final \n
-    return re.sub('[(\\s*\\n)(^\n*)]', '\n', s)  # how to delete any number of \n at the beg of string and at the end???
+def clear_spaces_before_newline(s):  # maybe it's not really clear and beautiful, but it's the best what I can now
+    new = ' '.join([t for t in s.split(' ') if t])  # delete all additional spaces
+    new = re.sub('\\s*\\n', '\n', new)  # delete all spaces before final \n
+    return new.strip()  # and unnecessary \n at the beg and end of text
 
 
 def merge_phones_like_on_home_page(contact):  # 5 - merge with '\n' between elements (using join function)
@@ -48,6 +50,6 @@ def merge_phones_like_on_home_page(contact):  # 5 - merge with '\n' between elem
 
 
 def merge_emails_like_on_home_page(contact):  # create a list of emails with '\n' between them if email not None
-    return "\n".join(filter(lambda x: x is not None,  [contact.email,  contact.email2, contact.email3]))
+    return "\n".join(filter(lambda x: x is not None, [contact.email,  contact.email2, contact.email3]))
 
 
