@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 from model.group import Group
 from random import randrange
-import pytest
-# from data.add_group import testdata
-from data.add_group import constant as testdata
 
 
-@pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
-def test_modify_group(app, group):
+def test_modify_group(app, json_groups):
+    group = json_groups
     if app.group.count() == 0:
         app.group.create(Group(name='Created'))
     old_groups = app.group.get_group_list()

@@ -2,12 +2,10 @@
 import pytest
 from model.contact import Contact
 from random import randrange
-from data.add_contact import constant as testdata
-# from data.add_contact import testdata
 
 
-@pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
-def test_amend_contact_first_name(app, contact):
+def test_amend_contact_first_name(app, json_contacts):
+    contact = json_contacts
     if app.contact.count() == 0:
         app.contact.create(Contact(first_name="New", last_name="New"))
     old_contacts = app.contact.get_contact_list()
