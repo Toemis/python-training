@@ -36,7 +36,7 @@ class Contact:
         self.all_emails_from_home_page = all_emails_from_home_page
 
     def __repr__(self):
-        return "%s, last_name: %s, first_name: %s, %s" % (self.id, self.last_name, self.first_name, self.email)
+        return "%s, %s, %s, %s" % (self.id, self.first_name, self.last_name, self.email)
 
     def id_or_max(self):
         if self.id:
