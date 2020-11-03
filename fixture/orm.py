@@ -22,7 +22,7 @@ class ORMFixture:
         first_name = Optional(str, column="firstname")
         last_name = Optional(str, column="lastname")
         email = Optional(str, column="email")
-        deprecated = Optional(datetime, column="deprecated")
+        deprecated = Optional(str, column="deprecated")
 
     def __init__(self, host, name, user, password):
         self.db.bind('mysql', host=host, database=name, user=user, password=password, conv=decoders)
