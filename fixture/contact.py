@@ -51,7 +51,8 @@ class ContactHelper:
             wd.find_element_by_name(field_name).click()
             Select(wd.find_element_by_name(field_name)).select_by_visible_text(value)
             wd.find_element_by_xpath("//select[@name='%s']/option[text()='%s']" % (field_name, value)).click()
-  #          wd.find_element_by_css_selector('select[name="%s"] > option[value="%s"]' % (field_name, value)).click()
+
+    #          wd.find_element_by_css_selector('select[name="%s"] > option[value="%s"]' % (field_name, value)).click()
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
@@ -74,12 +75,27 @@ class ContactHelper:
         self.app.open_home_page()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_contact_by_id(id)
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+        wd.find_element_by_css_selector("div.msgbox")
+        self.app.open_home_page()
+        self.contact_cache = None
+
     def select_first_contact(self):
         self.select_contact_by_index(0)
 
     def select_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[id='%s']" % id).click()
 
     def amend_first_contact(self):
         self.amend_contact_by_index(0)
@@ -161,12 +177,4 @@ class ContactHelper:
         mobile_phone = re.search("M: (.*)", text).group(1)
         work_phone = re.search("W: (.*)", text).group(1)
         phone2 = re.search("P: (.*)", text).group(1)
-        return Contact(home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2 = phone2)
-
-
-
-
-
-
-
-
+        return Contact(home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2=phone2)
