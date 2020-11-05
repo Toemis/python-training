@@ -1,19 +1,31 @@
 import re
+from model.contact import Contact
 from random import randrange
 
 
-def test_contact_info_on_home_page(app):
+def test_contact_info_on_home_page(app, db):
     home_contacts_list = app.contact.get_contact_list()
-    index = randrange(len(home_contacts_list))
-    contact_from_home_page = home_contacts_list[index]
-    contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
-    assert contact_from_home_page.id == contact_from_edit_page.id
-    assert contact_from_home_page.first_name == contact_from_edit_page.first_name
-    assert contact_from_home_page.last_name == contact_from_edit_page.last_name
-    assert contact_from_home_page.address == clear_spaces_before_newline(contact_from_edit_page.address)
-    assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_edit_page)
-    assert contact_from_home_page.all_emails_from_home_page == \
-           clear_spaces_before_newline(merge_emails_like_on_home_page(contact_from_edit_page))
+    db_contact_list = db.get_contact_list()
+    db_contacts_clean = map(clean, db_contact_list)
+    assert sorted(home_contacts_list, key=Contact.id_or_max) == sorted(db_contacts_clean, key=Contact.id_or_max)
+
+    #assert contact_from_home_page.address == clear_spaces_before_newline(contact_from_edit_page.address)
+    # assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_edit_page)
+    # assert contact_from_home_page.all_emails_from_home_page == \
+    #        clear_spaces_before_newline(merge_emails_like_on_home_page(contact_from_edit_page))
+
+# def test_contact_info_on_home_page(app):
+#     home_contacts_list = app.contact.get_contact_list()
+#     index = randrange(len(home_contacts_list))
+#     contact_from_home_page = home_contacts_list[index]
+#     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
+#     assert contact_from_home_page.id == contact_from_edit_page.id
+#     assert contact_from_home_page.first_name == contact_from_edit_page.first_name
+#     assert contact_from_home_page.last_name == contact_from_edit_page.last_name
+#     assert contact_from_home_page.address == clear_spaces_before_newline(contact_from_edit_page.address)
+#     assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_edit_page)
+#     assert contact_from_home_page.all_emails_from_home_page == \
+#            clear_spaces_before_newline(merge_emails_like_on_home_page(contact_from_edit_page))
 
 
 def test_phones_on_home_page(app):
@@ -53,3 +65,6 @@ def merge_emails_like_on_home_page(contact):  # create a list of emails with '\n
     return "\n".join(filter(lambda x: x is not None, [contact.email,  contact.email2, contact.email3]))
 
 
+def clean(cont):
+    return Contact(id=cont.id, first_name=' '.join(cont.first_name.split()),
+                   last_name=' '.join(cont.last_name.split()))
