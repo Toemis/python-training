@@ -14,6 +14,7 @@ def test_add_group(app, db, check_ui, json_groups):
         def clean(gr):
             return Group(id=gr.id, name=gr.name.strip())
         ui_groups = app.group.get_group_list()
-        new_groups_clean = map(clean, db.get_group_list())
+        new_groups_clean = map(clean, new_groups)
         assert sorted(new_groups_clean, key=Group.id_or_max) == sorted(ui_groups, key=Group.id_or_max)
+        print("UI was checked")
 
