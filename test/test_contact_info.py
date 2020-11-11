@@ -12,7 +12,6 @@ def test_home_page_vs_db_contact_info(app, db):
     #     print(i)
 
 
-
 # def test_contact_info_on_home_page(app):
 #     home_contacts_list = app.contact.get_contact_list()
 #     index = randrange(len(home_contacts_list))
