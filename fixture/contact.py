@@ -159,8 +159,8 @@ class ContactHelper:
                 # last_name = cont.find_element_by_xpath("./td[2]").text
                 # first_name = cont.find_element_by_xpath("./td[3]").text
                 self.contact_cache.append(Contact(id=id, last_name=last_name, first_name=first_name,
-                                                  all_phones_from_home_page=all_phones,
-                                                  all_emails_from_home_page=all_emails,
+                                                  all_phones_merged=all_phones,
+                                                  all_emails_merged=all_emails,
                                                   address=address))
         return list(self.contact_cache)
 

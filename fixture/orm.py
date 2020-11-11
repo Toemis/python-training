@@ -22,6 +22,13 @@ class ORMFixture:
         first_name = Optional(str, column="firstname")
         last_name = Optional(str, column="lastname")
         email = Optional(str, column="email")
+        address = Optional(str, column="address")
+        home_phone = Optional(str, column="home")
+        mobile_phone = Optional(str, column="mobile")
+        work_phone = Optional(str, column="work")
+        phone2 = Optional(str, column="phone2")
+        email2 = Optional(str, column="email2")
+        email3 = Optional(str, column="email3")
         deprecated = Optional(datetime, column="deprecated")
         groups = Set(lambda: ORMFixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contacts", lazy=True)
 
