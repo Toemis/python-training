@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# run this file to create new groups.json
 from model.group import Group
 import random
 import string
@@ -14,7 +15,10 @@ except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
 
+# number of entries
 n = 3
+
+# file name and location
 f = "data/groups.json"
 
 for o, a in opts:

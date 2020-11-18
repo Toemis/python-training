@@ -193,3 +193,20 @@ class ContactHelper:
         work_phone = re.search("W: (.*)", text).group(1)
         phone2 = re.search("P: (.*)", text).group(1)
         return Contact(home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2=phone2)
+
+    def select_group_from_dropdown(self, group_id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_name("to_group").click()
+        # Select(wd.find_element_by_name("to_group")).select_by_visible_text("name xo")
+        wd.find_element_by_xpath("(//option[@value='%s'])[2]" % group_id).click()
+
+    def add_contact_to_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_contact_by_id(contact_id)
+        self.select_group_from_dropdown(group_id)
+        wd.find_element_by_name("add").click()
+        
+
+
