@@ -207,6 +207,18 @@ class ContactHelper:
         self.select_contact_by_id(contact_id)
         self.select_group_from_dropdown(group_id)
         wd.find_element_by_name("add").click()
-        
+
+    def delete_contact_from_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.open_group_page(group_id)
+        wd.find_element_by_id("%s" % contact_id).click()
+        wd.find_element_by_name("remove").click()
+        wd.find_element_by_id("logo").click()
+
+    def open_group_page(self, group_id):
+        wd = self.app.wd
+        group_url = self.app.base_url + "?group=%s" % group_id
+        wd.get(group_url)
+
 
 
