@@ -29,7 +29,7 @@ for o, a in opts:
 
 
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + " "*10  # failed if add string.punctuation
+    symbols = string.ascii_letters + string.digits + string.punctuation + " "*10  # failed if add string.punctuation
     s = prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
     clear_string = ' '.join([t for t in s.split(' ') if t])  # delete all unnecessary additional spaces
     return clear_string
