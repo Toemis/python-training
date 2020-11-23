@@ -212,7 +212,8 @@ class ContactHelper:
         wd = self.app.wd
         self.open_group_page(group_id)
         wd.find_element_by_id("%s" % contact_id).click()
-        wd.find_element_by_name("remove").click()
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
         wd.find_element_by_id("logo").click()
 
     def open_group_page(self, group_id):
