@@ -1,31 +1,36 @@
 # -*- coding: utf-8 -*-
-import pytest
+# import pytest
 from model.contact import Contact
 import random
+import allure
 
 
 def test_amend_contact(app, db, check_ui, json_contacts):
     contact = json_contacts
-    if len(db.get_contact_list()) == 0:
-        app.contact.create(Contact(first_name="New", last_name="New"))
-    old_contacts = db.get_contact_list()
-    choose_contact = random.choice(old_contacts)
-    contact.id = choose_contact.id
-    app.contact.amend_contact_by_id(contact)
-    new_contacts = db.get_contact_list()
-    index = old_contacts.index(choose_contact)
-    old_contacts[index] = contact
-    assert old_contacts == new_contacts
-    # need to clean the results from db as " " fails the test when compare with UI
-    if check_ui:
-        def clean(cont):
-            return Contact(id=cont.id, first_name=' '.join(cont.first_name.split()),
-                           last_name=' '.join(cont.last_name.split()))
+    with allure.step('Given a non-empty contact list'):
+        if len(db.get_contact_list()) == 0:
+            app.contact.create(Contact(first_name="New", last_name="New"))
+        old_contacts = db.get_contact_list()
+    with allure.step(' Given a random contact from the list'):
+        choose_contact = random.choice(old_contacts)
+        contact.id = choose_contact.id
+    with allure.step('When I amend the contact from the list'):
+        app.contact.amend_contact_by_id(contact)
+    with allure.step('Then the new contact list is equal to the old list with the amended contact'):
+        new_contacts = db.get_contact_list()
+        index = old_contacts.index(choose_contact)
+        old_contacts[index] = contact
+        assert old_contacts == new_contacts
+        # need to clean the results from db as " " fails the test when compare with UI
+        if check_ui:
+            def clean(cont):
+                return Contact(id=cont.id, first_name=' '.join(cont.first_name.split()),
+                               last_name=' '.join(cont.last_name.split()))
 
-        ui_contacts = app.contact.get_contact_list()
-        new_contacts_clean = map(clean, new_contacts)
-        assert sorted(new_contacts_clean, key=Contact.id_or_max) == sorted(ui_contacts, key=Contact.id_or_max)
-        print("UI was checked")
+            ui_contacts = app.contact.get_contact_list()
+            new_contacts_clean = map(clean, new_contacts)
+            assert sorted(new_contacts_clean, key=Contact.id_or_max) == sorted(ui_contacts, key=Contact.id_or_max)
+            print("UI was checked")
 
 
 # @pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
